@@ -16,16 +16,10 @@ if ($_POST) {
     ];
 
     // Add vehicle using our manager
-    $result = $vehicleManager->addVehicle($data);
-
-    // Debug: Check if addition was successful
-    if ($result) {
+    if ($vehicleManager->addVehicle($data)) {
         // Redirect to index page after successful addition
         header('Location: ../index.php');
         exit();
-    } else {
-        // If failed, show error for debugging
-        echo '<div class="alert alert-danger">Debug: Failed to add vehicle</div>';
     }
 }
 

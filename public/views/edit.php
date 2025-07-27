@@ -5,7 +5,6 @@ require_once '../../app/classes/VehicleManager.php';
 // Create instance of VehicleManager
 $vehicleManager = new VehicleManager();
 
-$message = '';
 $vehicle = null;
 
 // Get vehicle ID from URL
@@ -28,11 +27,9 @@ if ($_POST && $vehicleId) {
 
     // Update vehicle using our manager
     if ($vehicleManager->editVehicle($vehicleId, $data)) {
-        $message = '<div class="alert alert-success">Vehicle updated successfully!</div>';
-        // Redirect after 2 seconds
-        echo '<script>setTimeout(function(){ window.location.href = "../index.php"; }, 2000);</script>';
-    } else {
-        $message = '<div class="alert alert-danger">Error updating vehicle!</div>';
+        // Redirect to index page after successful update
+        header('Location: ../index.php');
+        exit();
     }
 }
 
@@ -41,7 +38,6 @@ include './header.php';
 
 <div class="container my-4">
     <h1>Edit Vehicle</h1>
-    <?php echo $message; ?>
 
     <?php if ($vehicle): ?>
         <form method="POST">

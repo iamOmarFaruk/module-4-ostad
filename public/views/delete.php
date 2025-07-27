@@ -5,7 +5,6 @@ require_once '../../app/classes/VehicleManager.php';
 // Create instance of VehicleManager
 $vehicleManager = new VehicleManager();
 
-$message = '';
 $vehicle = null;
 
 // Get vehicle ID from URL
@@ -20,11 +19,9 @@ if ($vehicleId) {
 if (isset($_POST['confirm']) && $_POST['confirm'] === 'yes' && $vehicleId) {
     // Delete vehicle using our manager
     if ($vehicleManager->deleteVehicle($vehicleId)) {
-        $message = '<div class="alert alert-success">Vehicle deleted successfully!</div>';
-        // Redirect after 2 seconds
-        echo '<script>setTimeout(function(){ window.location.href = "../index.php"; }, 2000);</script>';
-    } else {
-        $message = '<div class="alert alert-danger">Error deleting vehicle!</div>';
+        // Redirect to index page after successful deletion
+        header('Location: ../index.php');
+        exit();
     }
 }
 
@@ -33,7 +30,6 @@ include './header.php';
 
 <div class="container my-4">
     <h1>Delete Vehicle</h1>
-    <?php echo $message; ?>
 
     <?php if ($vehicle): ?>
         <p>Are you sure you want to delete <strong><?php echo $vehicle['name']; ?></strong>?</p>
