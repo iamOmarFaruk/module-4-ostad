@@ -1,30 +1,46 @@
 <?php
+// Include our VehicleManager class
+require_once '../app/classes/VehicleManager.php';
+
+// Create instance of VehicleManager
+$vehicleManager = new VehicleManager();
+
+// Get all vehicles from JSON file
+$vehicles = $vehicleManager->getVehicles();
+
 include './views/header.php';
 ?>
 
-
 <div class="container my-4">
     <h1>Vehicle Listing</h1>
-    <a href="./../public/views/add.php" class="btn btn-success mb-4">Add Vehicle</a>
+    <a href="./views/add.php" class="btn btn-success mb-4">Add Vehicle</a>
     <div class="row">
-        <!-- Loop Go here -->
-         
-            <div class="col-md-4">
+        <!-- Loop through all vehicles -->
+        <?php foreach ($vehicles as $vehicle): ?>
+            <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <img src="<?php echo $vehicle['image']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<?php echo $vehicle['name']; ?>">
                     <div class="card-body">
-                        <h5 class="card-title"></h5> 
-                         <p class="card-text">Type: </p>
-                        <p class="card-text">Price: $</p>
-                        <a href="./views/edit.php?id=" class="btn btn-primary">Edit</a>
-                        <a href="./views/delete.php?id=" class="btn btn-danger">Delete</a>
+                        <h5 class="card-title"><?php echo $vehicle['name']; ?></h5>
+                        <p class="card-text">Type: <?php echo $vehicle['type']; ?></p>
+                        <p class="card-text">Price: $<?php echo number_format($vehicle['price']); ?></p>
+                        <a href="./views/edit.php?id=<?php echo $vehicle['id']; ?>" class="btn btn-primary">Edit</a>
+                        <a href="./views/delete.php?id=<?php echo $vehicle['id']; ?>" class="btn btn-danger">Delete</a>
+                        <a href="./views/views.php?id=<?php echo $vehicle['id']; ?>" class="btn btn-info">View</a>
                     </div>
                 </div>
             </div>
-            
-        <!-- Loop ends here -->
+        <?php endforeach; ?>
+        <!-- End loop -->
+
+        <?php if (empty($vehicles)): ?>
+            <div class="col-12">
+                <p class="text-center">No vehicles found. <a href="./views/add.php">Add the first vehicle</a></p>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
 </body>
+
 </html>
