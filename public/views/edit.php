@@ -17,12 +17,12 @@ if ($vehicleId) {
 
 // Check if form is submitted
 if ($_POST && $vehicleId) {
-    // Get form data
+    // Get form data with basic validation
     $data = [
-        'name' => $_POST['name'],
-        'type' => $_POST['type'],
-        'price' => $_POST['price'],
-        'image' => $_POST['image']
+        'name' => htmlspecialchars(trim($_POST['name']), ENT_QUOTES, 'UTF-8'),
+        'type' => htmlspecialchars(trim($_POST['type']), ENT_QUOTES, 'UTF-8'),
+        'price' => (int)$_POST['price'], // Convert to integer for price
+        'image' => htmlspecialchars(trim($_POST['image']), ENT_QUOTES, 'UTF-8')
     ];
 
     // Update vehicle using our manager
@@ -43,19 +43,19 @@ include './header.php';
         <form method="POST">
             <div class="mb-3">
                 <label class="form-label">Vehicle Name</label>
-                <input type="text" name="name" class="form-control" value="<?php echo $vehicle['name']; ?>" required>
+                <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($vehicle['name'], ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Vehicle Type</label>
-                <input type="text" name="type" class="form-control" value="<?php echo $vehicle['type']; ?>" required>
+                <input type="text" name="type" class="form-control" value="<?php echo htmlspecialchars($vehicle['type'], ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Price</label>
-                <input type="number" name="price" class="form-control" value="<?php echo $vehicle['price']; ?>" required>
+                <input type="number" name="price" class="form-control" value="<?php echo (int)$vehicle['price']; ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Image URL</label>
-                <input type="text" name="image" class="form-control" value="<?php echo $vehicle['image']; ?>" required>
+                <input type="text" name="image" class="form-control" value="<?php echo htmlspecialchars($vehicle['image'], ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <button type="submit" class="btn btn-primary">Update Vehicle</button>
             <a href="../index.php" class="btn btn-secondary">Cancel</a>

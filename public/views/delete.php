@@ -32,13 +32,13 @@ include './header.php';
     <h1>Delete Vehicle</h1>
 
     <?php if ($vehicle): ?>
-        <p>Are you sure you want to delete <strong><?php echo $vehicle['name']; ?></strong>?</p>
+        <p>Are you sure you want to delete <strong><?php echo htmlspecialchars($vehicle['name'], ENT_QUOTES, 'UTF-8'); ?></strong>?</p>
         <div class="card mb-3" style="max-width: 400px;">
-            <img src="<?php echo $vehicle['image']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<?php echo $vehicle['name']; ?>">
+            <img src="<?php echo htmlspecialchars($vehicle['image'], ENT_QUOTES, 'UTF-8'); ?>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<?php echo htmlspecialchars($vehicle['name'], ENT_QUOTES, 'UTF-8'); ?>">
             <div class="card-body">
-                <h5 class="card-title"><?php echo $vehicle['name']; ?></h5>
-                <p class="card-text">Type: <?php echo $vehicle['type']; ?></p>
-                <p class="card-text">Price: $<?php echo number_format($vehicle['price']); ?></p>
+                <h5 class="card-title"><?php echo htmlspecialchars($vehicle['name'], ENT_QUOTES, 'UTF-8'); ?></h5>
+                <p class="card-text">Type: <?php echo htmlspecialchars($vehicle['type'], ENT_QUOTES, 'UTF-8'); ?></p>
+                <p class="card-text">Price: $<?php echo number_format((int)$vehicle['price']); ?></p>
             </div>
         </div>
         <form method="POST">

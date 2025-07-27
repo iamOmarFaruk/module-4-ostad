@@ -7,12 +7,12 @@ $vehicleManager = new VehicleManager();
 
 // Check if form is submitted
 if ($_POST) {
-    // Get form data
+    // Get form data with basic validation
     $data = [
-        'name' => $_POST['name'],
-        'type' => $_POST['type'],
-        'price' => $_POST['price'],
-        'image' => $_POST['image']
+        'name' => htmlspecialchars(trim($_POST['name']), ENT_QUOTES, 'UTF-8'),
+        'type' => htmlspecialchars(trim($_POST['type']), ENT_QUOTES, 'UTF-8'),
+        'price' => (int)$_POST['price'], // Convert to integer for price
+        'image' => htmlspecialchars(trim($_POST['image']), ENT_QUOTES, 'UTF-8')
     ];
 
     // Add vehicle using our manager
