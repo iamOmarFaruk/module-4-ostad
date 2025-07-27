@@ -4,20 +4,27 @@
         "name": "Toyota Camry",
         "type": "Sedan",
         "price": 25000,
-        "image": "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400"
+        "image": "https:\/\/images.unsplash.com\/photo-1621007947382-bb3c3994e3fb?w=400"
     },
     {
         "id": 2,
         "name": "Honda CR-V",
         "type": "SUV",
         "price": 28000,
-        "image": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400"
+        "image": "https:\/\/images.unsplash.com\/photo-1549317661-bd32c8ce0db2?w=400"
     },
     {
         "id": 3,
         "name": "Ford Mustang",
         "type": "Sports Car",
         "price": 35000,
-        "image": "https://images.unsplash.com/photo-1547744152-14d985cb937e?w=400"
+        "image": "https:\/\/images.unsplash.com\/photo-1547744152-14d985cb937e?w=400"
+    },
+    {
+        "id": 4,
+        "name": "gdfgfdgdg",
+        "type": "dfgfdgfdg",
+        "price": 1234,
+        "image": "https:\/\/imgd.aeplcdn.com\/370x208\/n\/cw\/ec\/103183\/raider-125-right-side-view-20.png?isig=0&q=80"
     }
 ]

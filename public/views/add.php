@@ -5,8 +5,6 @@ require_once '../../app/classes/VehicleManager.php';
 // Create instance of VehicleManager
 $vehicleManager = new VehicleManager();
 
-$message = '';
-
 // Check if form is submitted
 if ($_POST) {
     // Get form data
@@ -18,12 +16,16 @@ if ($_POST) {
     ];
 
     // Add vehicle using our manager
-    if ($vehicleManager->addVehicle($data)) {
-        $message = '<div class="alert alert-success">Vehicle added successfully!</div>';
-        // Redirect after 2 seconds
-        echo '<script>setTimeout(function(){ window.location.href = "../index.php"; }, 2000);</script>';
+    $result = $vehicleManager->addVehicle($data);
+
+    // Debug: Check if addition was successful
+    if ($result) {
+        // Redirect to index page after successful addition
+        header('Location: ../index.php');
+        exit();
     } else {
-        $message = '<div class="alert alert-danger">Error adding vehicle!</div>';
+        // If failed, show error for debugging
+        echo '<div class="alert alert-danger">Debug: Failed to add vehicle</div>';
     }
 }
 
@@ -32,7 +34,6 @@ include './header.php';
 
 <div class="container my-4">
     <h1>Add Vehicle</h1>
-    <?php echo $message; ?>
     <form method="POST">
         <div class="mb-3">
             <label class="form-label">Vehicle Name</label>

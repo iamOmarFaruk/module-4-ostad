@@ -2,17 +2,28 @@
 
 trait FileHandler
 {
-    private $filePath = "../data/vehicles.json";  // Path to our JSON file
+    private $filePath;  // Path to our JSON file
+
+    private function getFilePath()
+    {
+        if (!$this->filePath) {
+            // Set absolute path to the JSON file
+            $this->filePath = __DIR__ . "/../../data/vehicles.json";
+        }
+        return $this->filePath;
+    }
 
     public function readFile()
     {
+        $filePath = $this->getFilePath();
+
         // Check if file exists first
-        if (!file_exists($this->filePath)) {
+        if (!file_exists($filePath)) {
             return [];
         }
 
         // Read the file content
-        $jsonData = file_get_contents($this->filePath);
+        $jsonData = file_get_contents($filePath);
 
         // Convert JSON to PHP array
         $vehicles = json_decode($jsonData, true);
@@ -23,12 +34,15 @@ trait FileHandler
 
     public function writeFile($data)
     {
+        $filePath = $this->getFilePath();
+
         // Convert PHP array to JSON format
         $jsonData = json_encode($data, JSON_PRETTY_PRINT);
 
-        // Write to file
-        file_put_contents($this->filePath, $jsonData);
+        // Write to file and check if successful
+        $result = file_put_contents($filePath, $jsonData);
 
-        return true;
+        // Return true if write was successful
+        return $result !== false;
     }
 }
